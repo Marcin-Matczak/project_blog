@@ -30,13 +30,15 @@
 
     /* added class 'active' to the correct article */
     targetArticle.classList.add('active');
-  }
+  };
+
 
   const optArticleSelector = '.post',
     optTitleSelector = '.post-title',
     optTitleListSelector = '.titles';
 
-  function generateTitleLinks() {
+
+  const generateTitleLinks = function () {
 
     /* remove contents of titleList */
     const titleList = document.querySelector(optTitleListSelector);
@@ -56,7 +58,7 @@
       /* create HTML of the link */
       const linkHTML = `<li><a href="#${articleId}"><span>${articleTitle}</span></a></li>`;
 
-      html = html + linkHTML
+      html = html + linkHTML;
     }
 
     /* insert link into titleList */
@@ -67,7 +69,7 @@
       link.addEventListener('click', titleClickHandler);
     }
 
-  }
+  };
 
   generateTitleLinks();
 
