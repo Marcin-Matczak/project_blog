@@ -77,6 +77,19 @@
 
   generateTitleLinks();
 
+  const calculateTagsParams = function (tags) {
+
+    const values = Object.values(tags);
+
+    const max = Math.max(...values);
+    const min = Math.min(...values);
+    const paramObj = {
+      min: `${min}`,
+      max: `${max}`
+    };
+    return paramObj;
+
+  };
 
   const generateTags = function () {
 
@@ -126,6 +139,9 @@
       const tagList = document.querySelector(optTagsListSelector);
 
       /* [NEW] create variable for all links HTML code */
+      const tagsParams = calculateTagsParams(allTags);
+      console.log('tagsParams:', tagsParams);
+
       let allTagsHTML = '';
 
       /* [NEW] START LOOP: for each tag in allTags: */
