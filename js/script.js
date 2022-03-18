@@ -39,6 +39,7 @@
     optArticleTagsSelector = '.post-tags .list',
     optArticleAuthorSelector = '.post-author',
     optTagsListSelector = '.tags.list',
+    optAuthorsListSelector = '.authors',
     optCloudClassCount = 6,
     optCloudClassPrefix = 'tag-size-';
 
@@ -229,7 +230,9 @@
   addClickListenersToTags();
 
   const generateAuthors = function () {
+    let allAuthors = {};
     const articles = document.querySelectorAll(optArticleSelector);
+    const authorList = document.querySelector(optAuthorsListSelector);
 
     for (let article of articles) {
       const authorWrapper = article.querySelector(optArticleAuthorSelector);
@@ -238,7 +241,20 @@
       const linkHTML = `<a href="#author-${author}">${author}</a>`;
       html = html + linkHTML;
       authorWrapper.innerHTML = html;
+      if (!allAuthors[author]) {
+        allAuthors[author]++;
+      }
     }
+
+    let allAuthorsHTML = '';
+
+    for (let author in allAuthors) {
+      const onlyAuthor = author.replace('by', '')
+      allAuthorsHTML += `<li><a href="#author-${author}">${onlyAuthor}</a></li>`;
+    }
+
+    authorList.innerHTML = allAuthorsHTML;
+
   };
 
   generateAuthors();
