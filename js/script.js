@@ -70,7 +70,6 @@
       const articleTitle = article.querySelector(opts.TitleSelector).innerHTML;
 
       /* create HTML of the link */
-      //const linkHTML = `<li><a href="#${articleId}"><span>${articleTitle}</span></a></li>`;
       const linkHTMLData = { id: articleId, title: articleTitle };
       const linkHTML = templates.articleLink(linkHTMLData);
 
@@ -90,7 +89,7 @@
 
   generateTitleLinks();
 
-  const calculateTagsParams = function (tags) {
+  const calculateParams = function (tags) {
 
     const values = Object.values(tags);
 
@@ -104,7 +103,7 @@
 
   };
 
-  const calculateTagClass = function (count, params) {
+  const calculateCloudClass = function (count, params) {
     const normalizedCount = count - params.min;
     const normalizedMax = params.max - params.min;
     const percentage = normalizedCount / normalizedMax;
@@ -138,7 +137,6 @@
       for (let tag of articleTagsArray) {
 
         /* generate HTML of the link */
-        //const linkHTML = `<li><a href="#tag-${tag}">${tag}</a></li>`;
         const linkHTMLData = { id: tag, title: tag };
         const linkHTML = templates.tagLink(linkHTMLData);
 
@@ -164,19 +162,17 @@
       const tagList = document.querySelector(opts.TagsListSelector);
 
       /* [NEW] create variable for all links HTML code */
-      const tagsParams = calculateTagsParams(allTags);
+      const tagsParams = calculateParams(allTags);
 
-      const allTagsData = {tags: []};
+      const allTagsData = { tags: [] };
 
       /* [NEW] START LOOP: for each tag in allTags: */
       for (let tag in allTags) {
         /* [NEW] generate code of a link and add it to allTagsHTML */
-        //const tagLinkHTML = `<li><a href="#tag-${tag}" class="${calculateTagClass(allTags[tag], tagsParams)}">${tag}</a></li>`;
-
         allTagsData.tags.push({
           tag: tag,
           count: allTags[tag],
-          className: calculateTagClass(allTags[tag], tagsParams)
+          className: calculateCloudClass(allTags[tag], tagsParams)
         });
       }
       /* [NEW] END LOOP: for each tag in allTags: */
@@ -252,24 +248,27 @@
       const authorWrapper = article.querySelector(opts.ArticleAuthorSelector);
       let html = '';
       const author = article.getAttribute('data-author');
-      //const linkHTML = `<a href="#author-${author}">${author}</a>`;
-      const linkHTMLData = {id: author, title: author};
+      const linkHTMLData = { id: author, title: author };
       const linkHTML = templates.authorLink(linkHTMLData);
       html = html + linkHTML;
       authorWrapper.innerHTML = html;
       if (!allAuthors[author]) {
+        allAuthors[author] = 1;
+      } else {
         allAuthors[author]++;
       }
     }
 
-    const allAuthorsData = {authors: []};
+    const authorsParams = calculateParams(allAuthors);
+    const allAuthorsData = { authors: [] };
 
     for (let author in allAuthors) {
       const onlyAuthor = author.replace('by', '');
-      //const authorLinkHTML = `<li><a href="#author-${author}">${onlyAuthor}</a></li>`;
       allAuthorsData.authors.push({
         author: onlyAuthor,
-        authorId: author
+        authorId: author,
+        count: allAuthors[author],
+        className: calculateCloudClass(allAuthors[author], authorsParams)
       });
     }
     authorList.innerHTML = templates.authorCloudLink(allAuthorsData);

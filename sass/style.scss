@@ -93,6 +93,10 @@ body {
   }
 }
 
+a {
+  text-decoration: none;
+}
+
 /* Authors */
 
 .authors {
@@ -125,26 +129,26 @@ body {
 
 /* Tags */
 
-.list.tags .tag-size-1 {
+.tag-size-1 {
   font-size: 13px;
 }
 
-.list.tags .tag-size-2 {
+.tag-size-2 {
   font-size: 16px;
 }
 
-.list.tags .tag-size-3 {
+.tag-size-3 {
   font-size: 19px;
 }
 
-.list.tags .tag-size-4 {
+.tag-size-4 {
   font-size: 22px;
 }
 
-.list.tags .tag-size-5 {
+.tag-size-5 {
   font-size: 25px;
 }
 
-.list.tags .tag-size-6 {
+.tag-size-6 {
   font-size: 28px;
 }
